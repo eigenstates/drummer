@@ -1,10 +1,35 @@
 <html>
     <head>
         <style type="text/css">
-            #rndControls{
+            #rndControls, #globalControls{
                 display: flex;
+                padding: 10px;
+            }
+            #rndControls > div:nth-child(1){
+                background: lightgray;
+            }
+            #rndControls > div:nth-child(2){
+                background: gray;
+            }
+            #rndControls > div:nth-child(3){
+                background: lightgray;
+            }
+            input[type=range]{
+                transform: rotateZ(270deg);
+                margin-top: 40px;
+            }
+            .slider{
+                height: 180px;
+                display:flex;
                 flex-direction: column;
             }
+            .slider > p{
+                text-align: center;
+            }
+            output{
+                margin-left: 15px;
+            }
+
         </style>
         <title>Fun Drummer</title>
         <script src="audio.js"></script>
@@ -13,34 +38,44 @@
 
     <body>
         <div id="rndControls">
-            <div>
-                HiHat
-               <input id="hhrandomAtion" type="range" value =0 min="0" max="10" oninput="hhoutputUpdate(value)">
+            <div class="slider">
+                <p>HiHat</p>
+                <input id="hhrandomAtion" type="range" value =0 min="0" max="10" oninput="hhoutputUpdate(value)">
                 <output for="hhrandomAtion" id="hhswing">0</output> 
             </div>
-            <div>
-                Snare
+            <div class="slider">
+                <p>Snare</p>
                 <input id="snrandomAtion" type="range" value =0 min="0" max="10" oninput="snoutputUpdate(value)">
                 <output for="snrandomAtion" id="snswing">0</output>
             </div>
-            <div>
-                Bass
+            <div class="slider">
+                <p>Bass</p>
                 <input id="bsrandomAtion" type="range" value =0 min="0" max="10" oninput="bsoutputUpdate(value)">
                 <output for="bsrandomAtion" id="bsswing">0</output>
             </div>
         </div>
-        <div>
-            Speed     
-            <input id="speed" type="range" value =80 min="60" max="130" oninput="speedUpdate(value)">
-            <output for="spped" id="speed">80</output>
-            Delay
-            <input id="bsDelay" type="range" value =0 min="0" max="50" oninput="delayUpdate(value)">
+        <div id="globalControls">
+            <div class="slider">
+                <p>Speed</p>      
+                <input id="speedSlider" type="range" value =80 min="60" max="130" oninput="speedUpdate(value)">
+                <output for="speed" id="speed">80</output>
+            </div>
+            <div class="slider">
+                <p>Delay</p>  
+                <input id="bsDelay" type="range" value =0 min="0" max="50" oninput="delayUpdate(value)">
+            </div>
         </div>
-        <button onclick="foo()">Click</button>
+        <div>
+        <button onclick="startAudio()">Start</button>
+        <button onclick="stopAudio()">Stop</button>
+        </div>
         <script type="text/javascript">
         var dumMachine = new RhythmSample();
-        function foo(){
+        function startAudio(){
             dumMachine.play();
+        }
+        function stopAudio(){
+            dumMachine.stop();
         }
 
         function hhoutputUpdate(vol) {

@@ -8,8 +8,10 @@ if (!context.createDelay)
 if (!context.createScriptProcessor)
   context.createScriptProcessor = context.createJavaScriptNode;
 
+var compressor = context.createDynamicsCompressor();
+compressor.connect(context.destination)
 var delayNode = context.createDelay(100);
-delayNode.connect(context.destination)
+delayNode.connect(compressor)
 
 // shim layer with setTimeout fallback
 window.requestAnimFrame = (function(){
@@ -27,7 +29,7 @@ window.requestAnimFrame = (function(){
 function playSound(buffer, time) {
   var source = context.createBufferSource();
   source.buffer = buffer;
-  source.connect(context.destination);
+  source.connect(compressor);
   source.connect(delayNode);
   source[source.start ? 'start' : 'noteOn'](time);
 }

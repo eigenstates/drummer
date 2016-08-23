@@ -68,6 +68,11 @@ RhythmSample.prototype.play = function() {
   schedule();
 
 };
+RhythmSample.prototype.stop = function() {
+  cancelAnimationFrame(timeoutId);
+  timeoutId = null;
+
+}
 
 var kickPatterns = [
                     [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],
@@ -139,10 +144,6 @@ function schedule() {
 }
 
 function advanceNote() {
-    // Advance time by a 16th note...
-    // var secondsPerBeat = 60.0 / theBeat.tempo;
-    //TODO CHANGE TEMPO HERE, convert to float
-    //tempo = Number($("#tempo-input").val());
     var secondsPerBeat = 60.0 / tempo;
     rhythmIndex++;
     if (rhythmIndex == LOOP_LENGTH) {    
@@ -151,13 +152,7 @@ function advanceNote() {
         currentSnarePattern = pickRandomPattern();
         rhythmIndex = 0;
     }
-   
-    //0.25 because each square is a 16th note
+
     noteTime += 0.25 * secondsPerBeat
-    // if (rhythmIndex % 2) {
-    //     noteTime += (0.25 + kMaxSwing * theBeat.swingFactor) * secondsPerBeat;
-    // } else {
-    //     noteTime += (0.25 - kMaxSwing * theBeat.swingFactor) * secondsPerBeat;
-    // }
 
 }
