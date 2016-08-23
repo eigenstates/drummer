@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <style type="text/css">
+            #rndControls{
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+        <title>Fun Drummer</title>
+        <script src="audio.js"></script>
+        <script src="RhythmSampler.js"></script>
+    </head>
+
+    <body>
+        <div id="rndControls">
+            <div>
+                HiHat
+               <input id="hhrandomAtion" type="range" value =0 min="0" max="10" oninput="hhoutputUpdate(value)">
+                <output for="hhrandomAtion" id="hhswing">0</output> 
+            </div>
+            <div>
+                Snare
+                <input id="snrandomAtion" type="range" value =0 min="0" max="10" oninput="snoutputUpdate(value)">
+                <output for="snrandomAtion" id="snswing">0</output>
+            </div>
+            <div>
+                Bass
+                <input id="bsrandomAtion" type="range" value =0 min="0" max="10" oninput="bsoutputUpdate(value)">
+                <output for="bsrandomAtion" id="bsswing">0</output>
+            </div>
+        </div>
+        <div>
+            Speed     
+            <input id="speed" type="range" value =80 min="60" max="130" oninput="speedUpdate(value)">
+            <output for="spped" id="speed">80</output>
+            Delay
+            <input id="bsDelay" type="range" value =0 min="0" max="50" oninput="delayUpdate(value)">
+        </div>
+        <button onclick="foo()">Click</button>
+        <script type="text/javascript">
+        var dumMachine = new RhythmSample();
+        function foo(){
+            dumMachine.play();
+        }
+
+        function hhoutputUpdate(vol) {
+	        document.querySelector('#hhswing').value = vol;
+        }
+        function snoutputUpdate(vol) {
+	        document.querySelector('#snswing').value = vol;
+        }
+        function bsoutputUpdate(vol) {
+	        document.querySelector('#bsswing').value = vol;
+        }
+        function speedUpdate(vol) {
+	        document.querySelector('#speed').value = vol;
+            tempo = vol
+        }
+        function delayUpdate(val){
+            delayNode.delayTime.value = val;
+        }
+
+        </script>
+    </body>
+</html>
